@@ -32,7 +32,6 @@ def createGraph(imgArray):
     startFound = False
 
 
-
     # Next we find the number of dimensions in the array
     # (which should only be 2 in this case). This needs
     # to be stored, as nparray.shape is just a function
