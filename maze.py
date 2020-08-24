@@ -140,6 +140,11 @@ class Maze:
                         leftnode.Neighbours[1] = n
                         # Setting our new Node, n's West Neighbour to be our last node, leftnode
                         n.Neighbours[3] = leftnode
+                        # We calculate the weight between n and leftnode
+                        weight = n.Position[1] - leftnode.Position[1]
+                        # We then set the Weights of n and leftnode to be that calculated weights
+                        n.Weights[3] = weight
+                        leftnode.Weights[3] = weight
                         # As we've hit a wall as the next tile, we empty leftnode, as nothing will
                         # connect to the right of our current Node n, because of the wall
                         leftnode = None
@@ -172,6 +177,12 @@ class Maze:
                         # At the same time, we set n's North Neighbour to be t, the Node
                         # directly above it
                         n.Neighbours[0] = t
+                        # Calculating the weight/distance between our current Node n and 
+                        # the Node above us, t
+                        weight = n.Position[0] - t.Position[0]
+                        # We then set n's North weight, and t's South weight to this value
+                        n.Weights[0] = weight
+                        t.Weights[2] = weight
                 
                 # We also check below us to see if there is a path...
                 if (data[rowbelowoffset + x] > 0):
@@ -197,6 +208,11 @@ class Maze:
                 t = topnodes[x]
                 # We set's South Neighbour to be the Maze's End Node
                 t.Neighbours[2] = self.end
+                # Calculating the weight between our Maze End and t's Position
+                weight = self.end.Position[0] - t.Position[0]
+                # And then setting these Weights
+                self.end.Weights[0] = weight
+                t.Weights[2] = weight
                 # We also increase our Node count by 1
                 count += 1
                 break
